@@ -1,13 +1,11 @@
 const electron = require("electron");
 const { ipcRenderer } = electron;
 const generatebtn = document.getElementById("Generator");
-console.log("🚀 ~ generatebtn:", generatebtn)
-
+const os = require("os");
+let networkInterfaces = os.networkInterfaces();
+let mac = networkInterfaces["Wi-Fi"][0].mac;
+console.log(mac);
 generatebtn.addEventListener("click", () => {
-  // ipcRen(
-  //   "generate-password",
-  //   document.querySelector(".keyword").value
-  // );
   ipcRenderer.send(
     "generate-password",
     document.querySelector(".keyword").value
@@ -16,4 +14,5 @@ generatebtn.addEventListener("click", () => {
 
 ipcRenderer.on("password-generated", (event, data) => {
   document.querySelector(".password").innerHTML = data;
+  document.querySelector(".mac-address").innerHTML = mac;
 });

@@ -18,7 +18,6 @@ const createWindow = () => {
 app.whenReady().then(createWindow);
 
 ipcMain.on("generate-password", (event, data) => {
-  console.log(data);
   const randomPassword = data + Math.random().toString(36).substring(2, 5);
   win.webContents.send("password-generated", randomPassword);
 });
